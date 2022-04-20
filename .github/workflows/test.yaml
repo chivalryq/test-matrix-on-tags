@@ -40,7 +40,7 @@ jobs:
           echo ${{ steps.checkTag.outputs.exists }}
           if [ "${{ steps.checkTag.outputs.exists }}" = "true" ]; then
             echo "Tag exists"
-            echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
+            echo "::set-output name=matrix::[\"README.md\",\"foo\"]"
           else
             echo "Tag does not exist"
             echo "::set-output name=matrix::[\"one-test\"]"
@@ -55,4 +55,4 @@ jobs:
       - run: echo ${{ matrix.subdir }}
         name: subdir
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
