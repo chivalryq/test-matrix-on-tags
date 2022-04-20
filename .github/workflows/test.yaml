@@ -6,24 +6,6 @@ on:
     branches:
       - main
 jobs:
-  set:
-    runs-on: ubuntu-20.04
-    outputs:
-      matrix: ${{steps.list_dirs.outputs.matrix}}
-    steps:
-      - uses: actions/checkout@v2
-      - id: list_dirs
-        run: echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
-#
-#  get-output:
-#    runs-on: ubuntu-20.04
-#    needs: set
-#    strategy:
-#      matrix:
-#        subdir: ${{fromJson(needs.set.outputs.matrix)}}
-#    steps:
-#      - run: echo ${{ matrix.subdir }}
-
   set-matrix:
     runs-on: ubuntu-latest
     outputs:
@@ -37,24 +19,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: set-matrix
-        id: set-matrix
+      - id: set-matrix
         run: |
           echo ${{ steps.checkTag.outputs.exists }}
           if [ "${{ steps.checkTag.outputs.exists }}" = "true" ]; then
-            echo "Tag exists"
             echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
           else
-            echo "Tag does not exist"
-            echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
-            echo something
-
+            echo "::set-output name=matrix::[\"one-test\"]"
           fi
-  test-output:
-    runs-on: ubuntu-20.04
-    needs: set-matrix
-    steps:
-      - run: echo ${{ needs.set-matrix.outputs.matrix }}
   get:
     runs-on: ubuntu-20.04
     needs: set-matrix
