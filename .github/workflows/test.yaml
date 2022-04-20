@@ -49,7 +49,7 @@ jobs:
     needs: set-matrix
     strategy:
       matrix:
-        subdir: ${{ fromJson(needs.set-matrix.outputs.matrix) }}
+        subdir: ${{fromJson(needs.set-matrix.outputs.matrix)}}
     steps:
       - run: echo ${{ matrix.subdir }}
         name: subdir
