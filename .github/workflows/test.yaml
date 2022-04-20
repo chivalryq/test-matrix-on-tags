@@ -38,7 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: set-matrix
-#        id: set-matrix
+        id: set-matrix
         run: |
           echo ${{ steps.checkTag.outputs.exists }}
           if [ "${{ steps.checkTag.outputs.exists }}" = "true" ]; then
