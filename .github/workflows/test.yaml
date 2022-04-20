@@ -1,0 +1,38 @@
+name: output matrix
+on:
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - main
+jobs:
+  test-tags:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: mukunku/tag-exists-action@v1.0.0
+        id: checkTag
+        with:
+          tag: 'v1'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: |
+        echo ${{ steps.checkTag.outputs.exists }}
+        if [ "${{ steps.checkTag.outputs.exists }}" = "true" ]; then
+          echo "Tag exists"
+          echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
+        else
+          echo "Tag does not exist"
+        fi
+  get:
+    runs-on: ubuntu-20.04
+    needs: set
+    strategy:
+      matrix:
+        subdir: ${{ fromJson(needs.test-tags.outputs.matrix) }}
+    steps:
+      - run: echo ${{ matrix.subdir }}
+        name: subdir
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
