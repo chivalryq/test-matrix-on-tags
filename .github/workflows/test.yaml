@@ -17,7 +17,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: |
+      - name: set-matrix
+        run: |
         echo ${{ steps.checkTag.outputs.exists }}
         if [ "${{ steps.checkTag.outputs.exists }}" = "true" ]; then
           echo "Tag exists"
