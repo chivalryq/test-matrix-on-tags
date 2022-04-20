@@ -40,10 +40,10 @@ jobs:
           echo ${{ steps.checkTag.outputs.exists }}
           if [ "${{ steps.checkTag.outputs.exists }}" = "true" ]; then
             echo "Tag exists"
-            echo "::set-output name=matrix::[\"README.md\",\"foo\"]"
+            echo "::set-output name=$(ls|jq -cnR '[inputs | select(length>0)]')"
           else
             echo "Tag does not exist"
-            echo "::set-output name=matrix::[\"one-test\"]"
+            echo "::set-output name=$(ls|jq -cnR '[inputs | select(length>0)]')"
           fi
   test-output:
     runs-on: ubuntu-20.04
