@@ -1,5 +1,8 @@
 name: output matrix
 on:
+  pull_request:
+    branches:
+      - main
   push:
     tags:
       - 'v*'
@@ -40,7 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   get-again:
     runs-on: ubuntu-20.04
-    needs: get
+    needs: set-matrix
     strategy:
       matrix:
         subdir: ${{fromJson(needs.set-matrix.outputs.matrix)}}
