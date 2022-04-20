@@ -38,3 +38,14 @@ jobs:
         name: subdir
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  get-again:
+    runs-on: ubuntu-20.04
+    needs: get
+    strategy:
+      matrix:
+        subdir: ${{fromJson(needs.get.outputs.matrix)}}
+    steps:
+      - run: echo ${{ matrix.subdir }}
+        name: subdir
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
