@@ -6,14 +6,14 @@ on:
     branches:
       - main
 jobs:
-#  set:
-#    runs-on: ubuntu-20.04
-#    outputs:
-#      matrix: ${{steps.list_dirs.outputs.matrix}}
-#    steps:
-#      - uses: actions/checkout@v2
-#      - id: list_dirs
-#        run: echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
+  set:
+    runs-on: ubuntu-20.04
+    outputs:
+      matrix: ${{steps.list_dirs.outputs.matrix}}
+    steps:
+      - uses: actions/checkout@v2
+      - id: list_dirs
+        run: echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
 #
 #  get-output:
 #    runs-on: ubuntu-20.04
@@ -26,6 +26,8 @@ jobs:
 
   set-matrix:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{steps.set-matrix.outputs.matrix}}
     steps:
       - uses: actions/checkout@v2
       - uses: mukunku/tag-exists-action@v1.0.0
@@ -36,6 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: set-matrix
+#        id: set-matrix
         run: |
           echo ${{ steps.checkTag.outputs.exists }}
           if [ "${{ steps.checkTag.outputs.exists }}" = "true" ]; then
