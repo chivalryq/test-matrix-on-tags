@@ -44,6 +44,8 @@ jobs:
           else
             echo "Tag does not exist"
             echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
+            echo something
+
           fi
   test-output:
     runs-on: ubuntu-20.04
