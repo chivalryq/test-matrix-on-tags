@@ -19,13 +19,13 @@ jobs:
 
       - name: set-matrix
         run: |
-        echo ${{ steps.checkTag.outputs.exists }}
-        if [ "${{ steps.checkTag.outputs.exists }}" = "true" ]; then
-          echo "Tag exists"
-          echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
-        else
-          echo "Tag does not exist"
-        fi
+          echo ${{ steps.checkTag.outputs.exists }}
+          if [ "${{ steps.checkTag.outputs.exists }}" = "true" ]; then
+            echo "Tag exists"
+            echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
+          else
+            echo "Tag does not exist"
+          fi
   get:
     runs-on: ubuntu-20.04
     needs: set
