@@ -1,5 +1,8 @@
 name: output matrix
 on:
+  pull_request:
+    branches:
+      - main
   push:
     tags:
       - 'v*'
