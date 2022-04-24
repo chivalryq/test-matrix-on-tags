@@ -16,6 +16,10 @@ jobs:
       matrix: ${{steps.set-matrix.outputs.matrix}}
     steps:
       - uses: actions/checkout@v2
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.2
+
       - name: Check github ref
         id: github_ref
         run: |
