@@ -21,9 +21,15 @@ jobs:
         id: github_ref
         run: |
           echo '${{ github.ref }}'
+          echo '${{ github.event_name }}'
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            echo "release"
+            echo '${{ github.release.tag_name }}'
+          fi
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-            echo "found tags"
-            echo "${ github.ref#refs/tags/ }"
+            echo "tags!"
+            echo "${{ github.ref_name }}"
+            echo "${GITHUB_REF#refs/tags/}"
           fi
 
       - uses: mukunku/tag-exists-action@v1.0.0
