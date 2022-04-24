@@ -23,7 +23,7 @@ jobs:
           echo '${{ github.ref }}'
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             echo "found tags"
-            echo '${ github.ref#refs/tags/ }'
+            echo "${ github.ref#refs/tags/ }"
           fi
 
       - uses: mukunku/tag-exists-action@v1.0.0
