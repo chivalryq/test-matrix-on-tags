@@ -20,7 +20,7 @@ jobs:
         run: |
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             echo "pushing tag: ${{ github.ref_name }}"
-            echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
+            echo "::set-output name=matrix::[\"one-test\", \"two-test\"]"
           else
             echo "::set-output name=matrix::[\"one-test\"]"
           fi
