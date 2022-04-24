@@ -21,7 +21,7 @@ jobs:
           echo '${{ github.ref }}'
           echo '${{ github.event_name }}'
           echo '${{ GITHUB_REF }}'
-          echo '${{ GITHUB_REF#refs/tags/ }}'
+          echo '${ GITHUB_REF#refs/tags/ }'
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             echo "tags!"
             echo '${{ github.ref }}'
