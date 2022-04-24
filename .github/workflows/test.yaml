@@ -17,36 +17,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Check github ref
-        id: github_ref
+      - name: Set matrix
+        id: set_matrix
         run: |
-          echo '${{ github.ref }}'
-          echo '${{ github.event_name }}'
-          if [[ "${{ github.event_name }}" == "release" ]]; then
-            echo "release"
-            echo '${{ github.release.tag_name }}'
-          fi
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-            echo "tags!"
-            echo "${{ github.ref_name }}"
-            echo "${GITHUB_REF#refs/tags/}"
-          fi
-
-      - uses: mukunku/tag-exists-action@v1.0.0
-        id: checkTag
-        with:
-          tag: 'v1'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - id: set-matrix
-        run: |
-          echo ${{ steps.checkTag.outputs.exists }}
-          if [ "${{ steps.checkTag.outputs.exists }}" = "true" ]; then
+            echo "pushing tag: ${{ github.ref_name }}"
             echo "::set-output name=matrix::$(ls|jq -cnR '[inputs | select(length>0)]')"
           else
             echo "::set-output name=matrix::[\"one-test\"]"
           fi
+
   get:
     runs-on: ubuntu-20.04
     needs: set-matrix
