@@ -15,9 +15,17 @@ jobs:
     outputs:
       matrix: ${{steps.set-matrix.outputs.matrix}}
     steps:
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
+      - name: Check github ref
+        id: github_ref
+        run: |
+          echo '${{ github.ref }}'
+          echo '${{ github.event_name }}'
+          echo '${{ GITHUB_REF }}'
+          echo '${{ GITHUB_REF#refs/tags/ }}'
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            echo "tags!"
+            echo '${{ github.ref }}'
+          fi
 
       - uses: actions/checkout@v2
       - uses: mukunku/tag-exists-action@v1.0.0
