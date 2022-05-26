@@ -19,7 +19,6 @@ jobs:
           echo $VELAUX_VERSION
           LDFLAGS="-s -w -X ${{ env.VELA_VERSION_KEY }}=${{ env.VELAD_VERSION }} -X ${{ env.VELAUX_VERSION_KEY }}=$VELAUX_VERSION -X ${{ env.VELAD_VERSION_KEY }}=${{ env.VELAD_VERSION }} -X ${{ env.VELA_GITVERSION_KEY }}=git-${{ env.VELA_SHA_SHORT }}"
           echo $LDFLAGS
-        shell: zsh
 
   set-matrix:
     runs-on: ubuntu-latest
