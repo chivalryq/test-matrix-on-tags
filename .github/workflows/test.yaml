@@ -9,6 +9,16 @@ on:
     branches:
       - main
 jobs:
+  test_var:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: |
+          velaux_version_clause=($(cat Makefile | grep "VELAUX_VERSION ?="))
+          echo $velaux_version_clause
+          VELAUX_VERSION=${velaux_version_clause[3]}
+          echo $VELAUX_VERSION
+          LDFLAGS="-s -w -X ${{ env.VELA_VERSION_KEY }}=${{ env.VELAD_VERSION }} -X ${{ env.VELAUX_VERSION_KEY }}=$VELAUX_VERSION -X ${{ env.VELAD_VERSION_KEY }}=${{ env.VELAD_VERSION }} -X ${{ env.VELA_GITVERSION_KEY }}=git-${{ env.VELA_SHA_SHORT }}"
+          echo $LDFLAGS
 
   set-matrix:
     runs-on: ubuntu-latest
