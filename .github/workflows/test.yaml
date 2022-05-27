@@ -10,6 +10,8 @@ on:
       - main
 env:
   VELA_VERSION: 1.4.0
+  VELA_VERSION2: 1.4.0-alpha.1
+  VELA_VERSION3: 1.4.0-beta.2
 jobs:
 
   set-matrix:
@@ -38,8 +40,12 @@ jobs:
         name: subdir
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "if clause"
-        if: ${{ !contains(env.VELA_VERSION,'alpha') &&  !contains(env.VELA_VERSION,'beta')}}
+      - run: echo "if 1"
+        if: ${{ !contains(env.VELA_VERSION,'alpha') && !contains(env.VELA_VERSION,'beta')}}
+      - run: echo "if 2"
+        if: ${{ !contains(env.VELA_VERSION2,'alpha') && !contains(env.VELA_VERSION2,'beta')}}
+      - run: echo "if 3"
+        if: ${{ !contains(env.VELA_VERSION3,'alpha') && !contains(env.VELA_VERSION3,'beta')}}
 
   get-again:
     runs-on: ubuntu-20.04
