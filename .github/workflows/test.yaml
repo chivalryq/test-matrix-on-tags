@@ -9,7 +9,7 @@ on:
     branches:
       - main
 env:
-  VELA_VERSION: 1.4.0-beta.1
+  VELA_VERSION: 1.4.0
 jobs:
 
   set-matrix:
@@ -39,7 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "if clause"
-        if: ${{contains(env.VELA_VERSION,'alpha') && contains(env.VELA_VERSION,'beta')}}
+        if: ${{ !contains(env.VELA_VERSION,'alpha') &&  !contains(env.VELA_VERSION,'beta')}}
 
   get-again:
     runs-on: ubuntu-20.04
