@@ -40,7 +40,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "if clause"
-        if: ${{contains(env.VELA_VERSION=='alpha')}}
+        if: ${{contains(env.VELA_VERSION,'alpha')}}
 
   get-again:
     runs-on: ubuntu-20.04
