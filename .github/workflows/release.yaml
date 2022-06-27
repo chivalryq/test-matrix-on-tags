@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch: { }
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build
+    env:
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Get version
+        run: echo "VELAD_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - name: sync the velad latest version file
+        if: ${{ !contains(env.VELAD_VERSION,'alpha') && !contains(env.VELAD_VERSION,'beta') }}
+        run: |
+          LATEST_VERSION=$(curl -fSl https://static.kubevela.net/binary/velad/latest_version)
+          echo $LATEST_VERSION
+          verlte() {
+            [  "$1" = "`echo -e "$1\n$2" | sort -V | head -n1`" ]
+          }
+          if [ verlt $LATEST_VERSION ${{ env.VELAD_VERSION }} ]; then
+            echo $LATEST_VERSION < ${{ env.VELAD_VERSION }}, update the file
+          fi
+  
+
