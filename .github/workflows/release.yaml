@@ -18,13 +18,11 @@ jobs:
       - name: sync the velad latest version file
         if: ${{ !contains(env.VELAD_VERSION,'alpha') && !contains(env.VELAD_VERSION,'beta') }}
         run: |
-          LATEST_VERSION=$(curl -fSl https://static.kubevela.net/binary/velad/latest_version)
-          echo $LATEST_VERSION
+          LATEST_VERSION=$(curl -fsSl https://static.kubevela.net/binary/velad/latest_version)
           verlte() {
             [  "$1" = "`echo -e "$1\n$2" | sort -V | head -n1`" ]
           }
-          if [ verlt $LATEST_VERSION ${{ env.VELAD_VERSION }} ]; then
-            echo $LATEST_VERSION < ${{ env.VELAD_VERSION }}, update the file
-          fi
+          verlte ${{ env.VELAD_VERSION }} $LATEST_VERSION && echo "${{ env.VELAD_VERSION }} <= $LATEST_VERSION, skip update"; return 0
+          echo "Updating the version"
   
 
