@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: auto release
-      - run: |
+        run: |
           git fetch --tags
           # Download a platform specific version of auto
           curl -kL -o - https://github.com/intuit/auto/releases/download/v10.28.0/auto-linux.gz | gunzip > ~/auto
