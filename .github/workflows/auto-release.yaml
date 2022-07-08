@@ -9,6 +9,8 @@ jobs:
   auto-release:
     runs-on: ubuntu-20.04
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - run: |
           # Download a platform specific version of auto
           curl -kL -o - https://github.com/intuit/auto/releases/download/v10.28.0/auto-linux.gz | gunzip > ~/auto
