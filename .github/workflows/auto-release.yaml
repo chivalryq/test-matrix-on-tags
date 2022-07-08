@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: auto release
       - run: |
           git fetch --tags
           # Download a platform specific version of auto
