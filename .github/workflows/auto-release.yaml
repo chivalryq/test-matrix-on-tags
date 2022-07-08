@@ -8,8 +8,6 @@ on:
 
 jobs:
   auto-release:
-    env:
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -19,4 +17,4 @@ jobs:
           curl -kL -o - https://github.com/intuit/auto/releases/download/v10.28.0/auto-linux.gz | gunzip > ~/auto
           # Make auto executable
           chmod a+x ~/auto
-          ~/auto shipit
+          GH_TOKEN=${{ secrets.GH_TOKEN }} ~/auto shipit
