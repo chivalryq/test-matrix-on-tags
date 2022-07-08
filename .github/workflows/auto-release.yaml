@@ -1,0 +1,17 @@
+name: auto-release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  auto-release:
+    runs-on: ubuntu-20.04
+    steps:
+      run: |
+        # Download a platform specific version of auto
+        curl -vkL -o - https://github.com/intuit/auto/releases/download/v10.28.0/auto-linux.gz | gunzip > ~/auto
+        # Make auto executable
+        chmod a+x ~/auto
+        ./auto shipit
