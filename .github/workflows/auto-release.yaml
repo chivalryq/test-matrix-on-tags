@@ -19,4 +19,4 @@ jobs:
           curl -kL -o - https://github.com/intuit/auto/releases/download/v10.28.0/auto-linux.gz | gunzip > ~/auto
           # Make auto executable
           chmod a+x ~/auto
-          GH_TOKEN=${{secrets.GH_TOKEN}} ~/auto shipit
+          GH_TOKEN=${{secrets.GH_TOKEN}} ~/auto shipit -vv
