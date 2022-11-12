@@ -76,4 +76,4 @@ jobs:
           echo "ARCH=${TARGETS#*/}" >> $GITHUB_OUTPUT
       - name: get_target
         run: |
-          echo ${{ steps.set_target.outputs.OS }}
+          echo "${{ steps.set_target.outputs.OS }}"
