@@ -67,7 +67,7 @@ jobs:
         run: echo "SELECTED_COLOR=green" >> $GITHUB_OUTPUT
       - name: Get color
         run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
-      - name: set_target
+      - id: set_target
         run: |
           TARGETS=linux/amd64
           echo "OS=${TARGETS%/*}" 
