@@ -58,3 +58,11 @@ jobs:
         name: subdir
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  get-target:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: |
+          TARGETS=linux/amd64
+          echo "OS=${TARGETS%/*}" >> $GITHUB_OUTPUT
+          echo "ARCH=${TARGETS#*/}" >> $GITHUB_OUTPUT
