@@ -65,6 +65,8 @@ jobs:
       - name: set_target
         run: |
           TARGETS=linux/amd64
+          echo "OS=${TARGETS%/*}" 
+          echo "ARCH=${TARGETS#*/}" 
           echo "OS=${TARGETS%/*}" >> $GITHUB_OUTPUT
           echo "ARCH=${TARGETS#*/}" >> $GITHUB_OUTPUT
       - name: get_target
