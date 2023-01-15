@@ -1,0 +1,19 @@
+name: test matrix
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    tags:
+      - v*
+    branches:
+      - main
+jobs:
+  echo:
+    runs-on: ubuntu-20.04
+    needs: set-matrix
+    strategy:
+      matrix:
+        arch: ["amd64","arm64"]
+    steps:
+      - run: echo ${{ matrix.arch }}
