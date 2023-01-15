@@ -11,7 +11,6 @@ on:
 jobs:
   echo:
     runs-on: ubuntu-20.04
-    needs: set-matrix
     strategy:
       matrix:
         arch: [ amd64,arm64 ]
