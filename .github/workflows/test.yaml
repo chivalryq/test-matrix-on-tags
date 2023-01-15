@@ -58,3 +58,23 @@ jobs:
         name: subdir
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  get-target:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Set color
+        id: random-color-generator
+        run: echo "SELECTED_COLOR=green" >> $GITHUB_OUTPUT
+      - name: Get color
+        run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+      - id: set_target
+        run: |
+          TARGETS=linux/amd64
+          echo "OS=${TARGETS%/*}" 
+          echo "ARCH=${TARGETS#*/}" 
+          echo "OS=${TARGETS%/*}" >> $GITHUB_OUTPUT
+          echo "ARCH=${TARGETS#*/}" >> $GITHUB_OUTPUT
+      - name: get_target
+        run: |
+          echo ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
+          echo ${{ steps.set_target.outputs.OS }}
