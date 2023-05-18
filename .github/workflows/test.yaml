@@ -23,9 +23,11 @@ jobs:
         id: set-matrix
         env:
           SSH_DEPLOY_KEY: ${{ secrets.VELA_API_DEPLOY }}
+          ANOTHER_KEY: ${{ secrets.VELA_API_DEPLOY }}
           VERSION: ${{ steps.get_version.outputs.VERSION }}
         run: |
           echo $SSH_DEPLOY_KEY
+          echo $ANOTHER_KEY
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             echo "pushing tag: ${{ github.ref_name }}"
             echo "::set-output name=matrix::[\"one-test\", \"two-test\"]"
